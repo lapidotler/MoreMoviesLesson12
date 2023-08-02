@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">My Movies</string>
+    <string name="tvTitle">Movie Title</string>
+    <string name="etTitle">Enter movie title here</string>
+    <string name="tvGenre">Genre</string>
+    <string name="etGenre">Enter genre here</string>
+    <string name="tvYear">Year</string>
+    <string name="etYear">Enter year of release here</string>
+    <string name="tvRating">Rating</string>
+    <string name="btnInsert">Insert</string>
+    <string name="btnShowList">Show List</string>
+    <string name="btnBack"><![CDATA[<< Return to Homepage]]></string>
+    <string name="sortByRating">SHOW ALL MOVIES WITH THIS RATING</string>
+    <string name="movie_id">Movie ID</string>
+    <string name="btnUpdate">Update</string>
+    <string name="btnDelete">Delete</string>
+    <string name="btnCancel">Cancel</string>
+</resources>
