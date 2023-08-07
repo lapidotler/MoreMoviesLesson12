@@ -134,8 +134,7 @@ public class ThirdActivity extends AppCompatActivity {
                 myBuilder.setMessage("Select one of the Buttons below.");
                 myBuilder.setCancelable(false);
 
-                // Configure the 'positive' button
-                myBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                myBuilder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DBHelper db = new DBHelper(ThirdActivity.this);
@@ -149,8 +148,9 @@ public class ThirdActivity extends AppCompatActivity {
                     }
                 });
 
-                // Configure the 'negative' button
-                myBuilder.setNegativeButton("Cancel", null);
+                myBuilder.setPositiveButton("Cancel", null);
+                AlertDialog myDialog = myBuilder.create();
+                myDialog.show();
             }
         });
 
@@ -162,8 +162,7 @@ public class ThirdActivity extends AppCompatActivity {
                 myBuilder.setMessage("Select one of the Buttons below.");
                 myBuilder.setCancelable(false);
 
-                // Configure the 'positive' button
-                myBuilder.setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+                myBuilder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
@@ -171,8 +170,9 @@ public class ThirdActivity extends AppCompatActivity {
                     }
                 });
 
-                // Configure the 'negative' button
-                myBuilder.setNegativeButton("Do Not Discard", null);
+                myBuilder.setPositiveButton("Do Not Discard", null);
+                AlertDialog myDialog = myBuilder.create();
+                myDialog.show();
             }
         });
     }
