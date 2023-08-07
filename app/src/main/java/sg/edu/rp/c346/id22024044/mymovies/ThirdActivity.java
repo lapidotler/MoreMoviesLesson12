@@ -117,7 +117,16 @@ public class ThirdActivity extends AppCompatActivity {
                         DBHelper db = new DBHelper(ThirdActivity.this);
                         data.setTitle(etTitle.getText().toString());
                         data.setGenre(etGenre.getText().toString());
-                        data.setYear(Integer.parseInt(etYear.getText().toString()));
+                        // data.setYear(Integer.parseInt(etYear.getText().toString()));
+
+                        String yearString = etYear.getText().toString();
+
+                        if (!yearString.matches("\\d+")) {
+                            Toast.makeText(ThirdActivity.this, "Please enter a valid year.", Toast.LENGTH_SHORT).show();
+                            return; // Exit the click listener early
+                        }
+
+                        data.setYear(Integer.parseInt(yearString));
 
                         // Get the selected rating from the Spinner
                         String selectedRating = spnRating.getSelectedItem().toString();

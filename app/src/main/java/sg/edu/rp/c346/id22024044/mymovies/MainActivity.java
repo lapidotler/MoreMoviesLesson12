@@ -83,7 +83,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String title = etTitle.getText().toString();
                 String genre = etGenre.getText().toString();
-                int year = Integer.parseInt(etYear.getText().toString());
+                String yearString = etYear.getText().toString();
+
+                if (!yearString.matches("\\d+")) {
+                    Toast.makeText(MainActivity.this, "Please enter a valid year.", Toast.LENGTH_SHORT).show();
+                    return; // Exit the click listener early
+                }
+
+                int year = Integer.parseInt(yearString);
 
                 String rating = spnRating.getSelectedItem().toString();
 
