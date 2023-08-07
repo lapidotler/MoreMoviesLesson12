@@ -1,13 +1,19 @@
 package sg.edu.rp.c346.id22024044.mymovies;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +23,9 @@ public class SecondActivity extends AppCompatActivity {
     ListView lvMovies;
     Button btnReturn, btnRating;
     Spinner spnRating;
+
+    TextView tvSearch;
+    EditText etSearch;
 
     CustomAdapter adapterCustom; // Custom adapter for the ListView
     ArrayList<Movie> customList; // ArrayList to hold the movies for the custom adapter
@@ -31,6 +40,7 @@ public class SecondActivity extends AppCompatActivity {
         btnRating = findViewById(R.id.btnFilterByRating);
 
         spnRating = findViewById(R.id.spnRating);
+
 
         DBHelper db = new DBHelper(SecondActivity.this);
 
@@ -52,15 +62,8 @@ public class SecondActivity extends AppCompatActivity {
         adapterCustom = new CustomAdapter(this, R.layout.row, customList);
         lvMovies.setAdapter(adapterCustom);
 
-        lvMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Movie data = customList.get(position); // Retrieve the selected Movie object
-                Intent i = new Intent(SecondActivity.this, ThirdActivity.class);
-                i.putExtra("data", data);
-                startActivity(i);
-            }
-        });
+        // Register the ListView for context menu
+        registerForContextMenu(lvMovies);
 
         btnRating.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,5 +94,36 @@ public class SecondActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        menu.add(0,0,0,"Manage Movie");
+        menu.add(0,1,1,"Bookmark");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int position = info.position;
+
+        if (item.getItemId() == 0) {
+            // Handle "Manage Movie" option
+            Movie selectedMovie = customList.get(position);
+            Intent i = new Intent(SecondActivity.this, ThirdActivity.class);
+            i.putExtra("data", selectedMovie);
+            startActivity(i);
+            return true;
+        } else if (item.getItemId() == 1) {
+            // Handle Bookmark/Un-bookmark option
+            Movie selectedMovie = customList.get(position);
+            selectedMovie.setBookmarked(!selectedMovie.isBookmarked());
+            adapterCustom.notifyDataSetChanged();
+            return true;
+        }
+        return super.onContextItemSelected(item);
     }
 }

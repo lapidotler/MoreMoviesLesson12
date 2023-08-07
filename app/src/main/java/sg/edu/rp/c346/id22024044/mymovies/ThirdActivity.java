@@ -106,23 +106,37 @@ public class ThirdActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBHelper db = new DBHelper(ThirdActivity.this);
-                data.setTitle(etTitle.getText().toString());
-                data.setGenre(etGenre.getText().toString());
-                data.setYear(Integer.parseInt(etYear.getText().toString()));
+                AlertDialog.Builder myBuilder = new AlertDialog.Builder(ThirdActivity.this);
+                myBuilder.setTitle("Update");
+                myBuilder.setMessage("Are you sure you want to update movie details?");
+                myBuilder.setCancelable(false);
 
-                // Get the selected rating from the Spinner
-                String selectedRating = spnRating.getSelectedItem().toString();
-                data.setRating(selectedRating);
+                myBuilder.setNegativeButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DBHelper db = new DBHelper(ThirdActivity.this);
+                        data.setTitle(etTitle.getText().toString());
+                        data.setGenre(etGenre.getText().toString());
+                        data.setYear(Integer.parseInt(etYear.getText().toString()));
 
-                db.updateMovie(data);
-                db.close();
+                        // Get the selected rating from the Spinner
+                        String selectedRating = spnRating.getSelectedItem().toString();
+                        data.setRating(selectedRating);
 
-                Toast.makeText(ThirdActivity.this, "Updated " + data.getTitle(),
-                        Toast.LENGTH_SHORT).show();
+                        db.updateMovie(data);
+                        db.close();
 
-                Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
-                startActivity(intent);
+                        Toast.makeText(ThirdActivity.this, "Updated " + data.getTitle(),
+                                Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+                myBuilder.setPositiveButton("Cancel", null);
+                AlertDialog myDialog = myBuilder.create();
+                myDialog.show();
             }
         });
 
@@ -130,8 +144,8 @@ public class ThirdActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder myBuilder = new AlertDialog.Builder(ThirdActivity.this);
-                myBuilder.setTitle("Demo 2 Buttons Dialog");
-                myBuilder.setMessage("Select one of the Buttons below.");
+                myBuilder.setTitle("Danger");
+                myBuilder.setMessage("Are you sure you want to delete the movie " + data.getTitle() + "?");
                 myBuilder.setCancelable(false);
 
                 myBuilder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
@@ -158,8 +172,8 @@ public class ThirdActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder myBuilder = new AlertDialog.Builder(ThirdActivity.this);
-                myBuilder.setTitle("Demo 2 Buttons Dialog");
-                myBuilder.setMessage("Select one of the Buttons below.");
+                myBuilder.setTitle("Danger");
+                myBuilder.setMessage("Are you sure you want to discard the changes?");
                 myBuilder.setCancelable(false);
 
                 myBuilder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {

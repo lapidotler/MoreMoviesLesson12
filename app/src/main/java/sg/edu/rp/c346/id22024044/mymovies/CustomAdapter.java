@@ -1,6 +1,7 @@
 package sg.edu.rp.c346.id22024044.mymovies;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,14 @@ public class CustomAdapter extends ArrayAdapter {
 
         // Obtain the Android Version information based on the position
         Movie currentMovie = movieList.get(position);
+
+        if (currentMovie.isBookmarked()) {
+            // Apply bookmarked appearance with yellow translucent bg color
+            rowView.setBackgroundColor(Color.argb(100, 255, 255, 0)); // Yellow with 40% transparency
+        } else {
+            // Set the default appearance
+            rowView.setBackgroundColor(Color.TRANSPARENT);
+        }
 
         // Set values to the TextView to display the corresponding information
         tvTitle.setText(currentMovie.getTitle());

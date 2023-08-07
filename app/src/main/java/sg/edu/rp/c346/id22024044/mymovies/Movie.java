@@ -8,6 +8,7 @@ public class Movie implements Serializable {
     private String genre;
     private int year;
     private String rating;
+    private boolean bookmarked;
 
     public Movie(int id, String title, String genre, int year, String rating) {
         this.id = id;
@@ -37,6 +38,10 @@ public class Movie implements Serializable {
         return rating;
     }
 
+    public boolean isBookmarked() {
+        return bookmarked;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -51,5 +56,9 @@ public class Movie implements Serializable {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        this.bookmarked = bookmarked;
     }
 }
