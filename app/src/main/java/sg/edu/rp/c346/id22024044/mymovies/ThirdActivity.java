@@ -1,5 +1,6 @@
 package sg.edu.rp.c346.id22024044.mymovies;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ThirdActivity extends AppCompatActivity {
@@ -127,22 +129,50 @@ public class ThirdActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBHelper db = new DBHelper(ThirdActivity.this);
-                db.deleteMovie(data.getId());
+                AlertDialog.Builder myBuilder = new AlertDialog.Builder(ThirdActivity.this);
+                myBuilder.setTitle("Demo 2 Buttons Dialog");
+                myBuilder.setMessage("Select one of the Buttons below.");
+                myBuilder.setCancelable(false);
 
-                Toast.makeText(ThirdActivity.this, "Removed " + data.getTitle(),
-                        Toast.LENGTH_SHORT).show();
+                // Configure the 'positive' button
+                myBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DBHelper db = new DBHelper(ThirdActivity.this);
+                        db.deleteMovie(data.getId());
 
-                Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
-                startActivity(intent);
+                        Toast.makeText(ThirdActivity.this, "Removed " + data.getTitle(),
+                                Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+                // Configure the 'negative' button
+                myBuilder.setNegativeButton("Cancel", null);
             }
         });
 
         btnCancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder myBuilder = new AlertDialog.Builder(ThirdActivity.this);
+                myBuilder.setTitle("Demo 2 Buttons Dialog");
+                myBuilder.setMessage("Select one of the Buttons below.");
+                myBuilder.setCancelable(false);
+
+                // Configure the 'positive' button
+                myBuilder.setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+                // Configure the 'negative' button
+                myBuilder.setNegativeButton("Do Not Discard", null);
             }
         });
     }
